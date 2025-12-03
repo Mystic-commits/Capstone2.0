@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
+import API_BASE_URL from '../config/api';
 
 const MyProperties = () => {
     const [properties, setProperties] = useState([]);
@@ -15,7 +16,7 @@ const MyProperties = () => {
     const fetchProperties = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/properties/my-properties', {
+            const res = await axios.get(`${API_BASE_URL}/api/properties/my-properties`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setProperties(res.data);
@@ -30,7 +31,7 @@ const MyProperties = () => {
         if (!window.confirm('Are you sure you want to delete this property?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/properties/${id}`, {
+            await axios.delete(`${API_BASE_URL}/api/properties/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setProperties(properties.filter(p => p._id !== id));

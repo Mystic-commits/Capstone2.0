@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RequestCard from '../components/RequestCard';
+import API_BASE_URL from '../config/api';
 
 const MyRequests = () => {
     const [requests, setRequests] = useState([]);
@@ -13,7 +14,7 @@ const MyRequests = () => {
     const fetchRequests = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/requests/my-requests', {
+            const res = await axios.get(`${API_BASE_URL}/api/requests/my-requests`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRequests(res.data);

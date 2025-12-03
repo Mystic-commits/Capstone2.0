@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropertyCard from '../components/PropertyCard';
 import RequestModal from '../components/RequestModal';
 import { FiSearch, FiFilter, FiX, FiHeart, FiHome, FiDroplet, FiMapPin, FiWifi, FiWind } from 'react-icons/fi';
+import API_BASE_URL from '../config/api';
 
 const BrowseProperties = () => {
     const [properties, setProperties] = useState([]);
@@ -79,7 +80,7 @@ const BrowseProperties = () => {
 
     const fetchProperties = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/properties');
+            const res = await axios.get(`${API_BASE_URL}/api/properties`);
             setProperties(res.data);
             setLoading(false);
         } catch (err) {
@@ -230,7 +231,7 @@ const BrowseProperties = () => {
         try {
             const token = localStorage.getItem('token');
             await axios.post(
-                'http://localhost:5000/api/requests',
+                `${API_BASE_URL}/api/requests`,
                 { propertyId: selectedProperty._id, message },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

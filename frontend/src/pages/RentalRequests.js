@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RequestCard from '../components/RequestCard';
+import API_BASE_URL from '../config/api';
 
 const RentalRequests = () => {
     const [requests, setRequests] = useState([]);
@@ -13,7 +14,7 @@ const RentalRequests = () => {
     const fetchRequests = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.get('http://localhost:5000/api/requests/incoming', {
+            const res = await axios.get(`${API_BASE_URL}/api/requests/incoming`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRequests(res.data);
@@ -28,7 +29,7 @@ const RentalRequests = () => {
         try {
             const token = localStorage.getItem('token');
             const endpoint = status === 'approved' ? 'approve' : 'reject';
-            await axios.put(`http://localhost:5000/api/requests/${id}/${endpoint}`, {}, {
+            await axios.put(`${API_BASE_URL}/api/requests/${id}/${endpoint}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchRequests(); // Refresh list
