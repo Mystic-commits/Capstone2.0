@@ -19,7 +19,7 @@ app.use(express.json());
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI, { dbName: 'RentEase' });
+    const conn = await mongoose.connect(process.env.MONGODB_URI, { dbName: 'rentease' });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     console.log(`📊 Database: ${conn.connection.name}`);
   } catch (err) {
