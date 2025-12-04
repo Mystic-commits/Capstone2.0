@@ -6,14 +6,14 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || '*',
-    credentials: true
+  origin: process.env.CORS_ORIGIN || '*',
+  credentials: true
 }));
 app.use(express.json());
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    const conn = await mongoose.connect(process.env.MONGODB_URI, { dbName: 'RentEase' });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     console.log(`📊 Database: ${conn.connection.name}`);
   } catch (err) {
@@ -26,7 +26,7 @@ const connectDB = async () => {
 connectDB();
 
 app.get('/', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'RentEase API Server',
     status: 'running',
     endpoints: {
